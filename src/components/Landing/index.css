@@ -1,0 +1,69 @@
+.landing-page{
+    width: 100%;
+    height: 100vh;
+    background: url(../../images/background.png);
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-color: #CCC;
+    filter: contrast(200%);
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.redberry-logo{
+    margin: 0 70px;
+    padding: 25px;
+    border-bottom: 1px solid #1A1A1A;
+}
+.redberry-logo > img{
+    width: 236px;
+    height: 38px;
+}
+.landing-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+}
+.landing-button{
+    background-color: #1A1A1A;
+    padding: 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    color: #FFF;
+    width: 464px;
+    height: 60px;
+    cursor: pointer;
+}
+.landing-button:after{
+    display: none;
+    content: "";
+    width: 299px;
+    height: 299px;
+    position: relative;
+    left: 350px;
+    bottom: 100px;
+    background: url("../../images/transparent-logo.png");
+}
+
+@media ( max-width: 390px){
+    .landing-page{
+        background-size: cover;
+        background-color: black;
+    }
+    .redberry-logo{
+        margin: auto;
+    }
+    .landing-button{
+        width: 90%;
+    }
+    .landing-button:after{
+        display: none;
+    }
+}
