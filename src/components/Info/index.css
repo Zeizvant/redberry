@@ -1,8 +1,10 @@
 .info-component{
     display: flex;
+    justify-content: stretch;
     flex-direction: column;
     margin: 50px 70px;
     flex-shrink: 1;
+    position: relative;
 }
 .person-info{
     display: flex;
@@ -84,4 +86,6 @@
     margin-top: 20px;
     width: 42px;
     height: 42px;
+    position: absolute;
+    bottom: 0px;
 }
