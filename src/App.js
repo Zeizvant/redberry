@@ -8,7 +8,7 @@ import { Experience } from './components/Experience/Experience'
 function App() {
   return (
     <div className="App">
-      <Experience />
+      <PersonInfo />
       <Info />
     </div>
   );
