@@ -47,10 +47,12 @@ export const Info = (props) => {
                 experienceData.formNum != undefined && experienceData.formNum.map((data, i) => {
                     const startDate = experienceData.startDate[i] === undefined ? '' : experienceData.startDate[i]
                     const dueDate = experienceData.dueDate[i] === undefined ? '' : experienceData.dueDate[i]
+                    const position = experienceData.position[i] === undefined ? '' : experienceData.position[i] + ','
+                    const employer = experienceData.employer[i] === undefined ? '' : experienceData.employer[i]
                     return (
                         <div key={data} className="person-experience-info">
                             <h3>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</h3>
-                            {experienceData.position && <p className="place">{experienceData.position[i]}</p>}
+                            {(position || employer) && <p className="place">{`${position} ${employer}`}</p>}
                             {(startDate || dueDate)  &&
                                  <p className="date">{`${startDate} - ${dueDate}`}</p>}
                             {
