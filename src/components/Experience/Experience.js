@@ -3,19 +3,25 @@ import './index.css'
 import backSign from '../../images/back-sign.png'
 import { addLocalStorage } from "../../functions/addLocalStorage"
 
-export const Experience = () => {
+export const Experience = (props) => {
 
     const [position, setPosition] = useState([])
-    const [employer, setEmployer] = useState([''])
-    const [startDate, setStartDate] = useState([''])
-    const [dueDate, setDueDate] = useState([''])
-    const [experienceDescription, setExperienceDescription] = useState([''])
+    const [employer, setEmployer] = useState([])
+    const [startDate, setStartDate] = useState([])
+    const [dueDate, setDueDate] = useState([])
+    const [experienceDescription, setExperienceDescription] = useState([])
     const [formNum, setFormNum] = useState([0])
 
     const addForm = () => {
         setFormNum([...formNum, formNum[formNum.length - 1] + 1])
         addLocalStorage('formNum', [...formNum, formNum[formNum.length - 1] + 1])
     }
+
+    useEffect(() => {
+        const data = {position, employer, startDate, dueDate, experienceDescription, formNum}
+        props.sendData(data)
+    }, [position, employer, startDate, dueDate, experienceDescription, formNum])
+
     useEffect(() => {
         const position = JSON.parse(localStorage.getItem('position'))
         if(position){

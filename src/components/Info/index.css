@@ -15,6 +15,7 @@
 .person-info > img{
     width: 246px;
     height: 246px;
+    border-radius: 50%;
 }
 .person-description{
     display: flex;

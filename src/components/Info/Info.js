@@ -1,40 +1,67 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import './index.css'
 import img from '../../images/valid.png'
 import at from '../../images/at.png'
 import phone from '../../images/phone.png'
 import logo from '../../images/logo.png'
 
-export const Info = () => {
+export const Info = (props) => {
+
+    const data = props.personInfoData
+    const experienceData = props.experienceData
+    console.log(experienceData)
     return (
         <div className="info-component">
             <div className="person-info">
                 <div className="person-description">
-                    <h2>ანზორ მუმლაძე</h2>
-                    <div className="info-row">
-                        <img src={at} alt='at symbol'/>
-                        <p>anzorr666@redberry.ge</p>
-                    </div>
-                    <div className="info-row">
-                        <img src={phone} alt='phone image'/>
-                        <p>+995 597 63 45 16</p>
-                    </div>
-                    <div className="about-me">
-                        <h3>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</h3>
-                        <p>ძალიან მიყვარს დიზაინის კეთება. დილით ადრე რომ 
-                        ავდგები გამამხნევებელი ვარჯიშების მაგიერ დიზაინს ვაკეთებ. </p>
-                    </div>
+                    {data.name && data.lastName && <h2>{`${data.name} ${data.lastName}`}</h2>}
+                    {
+                        data.email && 
+                            <div className="info-row">
+                                <img src={at} alt='at symbol'/>
+                                <p>{data.email}</p>
+                            </div>
+                    }
+                    
+                    {
+                        data.number &&
+                        <div className="info-row">
+                                <img src={phone} alt='phone image'/>
+                                <p>{data.number}</p>
+                            </div>
+                    }
+                    
+                    {
+                        data.about &&
+                         <div className="about-me">
+                            <h3>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</h3>
+                            <p>ძალიან მიყვარს დიზაინის კეთება. დილით ადრე რომ 
+                            ავდგები გამამხნევებელი ვარჯიშების მაგიერ დიზაინს ვაკეთებ. </p>
+                        </div>
+                    }
+                    
                 </div>
-                <img src={img}/>
+                {data.image && <img src={data.image}/>}
             </div>
-            <div className="person-experience-info">
-                <h3>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</h3>
-                <p className="place">React Native Developer, Microsoft</p>
-                <p className="date">2020-09-23 - 2020-09-23</p>
-                <p>Experienced Javascript Native Developer with 5 years in the industry. 
-                    proficient withreact. Used problem-solving aptitude to 
-                    encahge application performance by 14%.created data visualisation tools and integrated designs. </p>
-            </div>
+            {
+                experienceData.formNum != undefined && experienceData.formNum.map((data, i) => {
+                    const startDate = experienceData.startDate[i] === undefined ? '' : experienceData.startDate[i]
+                    const dueDate = experienceData.dueDate[i] === undefined ? '' : experienceData.dueDate[i]
+                    return (
+                        <div key={data} className="person-experience-info">
+                            <h3>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</h3>
+                            {experienceData.position && <p className="place">{experienceData.position[i]}</p>}
+                            {(startDate || dueDate)  &&
+                                 <p className="date">{`${startDate} - ${dueDate}`}</p>}
+                            {
+                                experienceData.experienceDescription[i] && 
+                                <p>{experienceData.experienceDescription}</p>
+                            }
+                        </div>
+                    )
+                })
+            }
+            
             <div className="education">
                 <h3>ᲒᲐᲜᲐᲗᲚᲔᲑᲐ</h3>
                 <p className="place">წმ. ანდრიას საპატრიარქოს სასწავლებელი, სტუდენტი</p>

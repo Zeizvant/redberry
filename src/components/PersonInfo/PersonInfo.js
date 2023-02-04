@@ -3,13 +3,25 @@ import './index.css'
 import backSign from '../../images/back-sign.png'
 import { addLocalStorage } from "../../functions/addLocalStorage"
 
-export const PersonInfo = () => {
+export const PersonInfo = (props) => {
     const [name, setName] = useState('')
     const [lastName, setLastName] = useState('')
     const [about, setAbout] = useState('')
     const [email, setEmail] = useState('')
     const [number, setNumber] = useState('')
     const [image, setImage] = useState(null)
+
+    useEffect(() => {
+        const data = {
+            name,
+            lastName,
+            about,
+            email,
+            number,
+            image
+        }
+        props.sendData(data)
+    }, [name, lastName, about, email, number, image])
 
     useEffect(() => {
         const name = JSON.parse(localStorage.getItem('name'))
@@ -50,7 +62,6 @@ export const PersonInfo = () => {
     return (
         <div className='form'>
             <div className='back-sign'>
-                {image && <img src={image} />}
                 <img src={backSign} alt='back sign button'/>
             </div>
             <form>
@@ -83,8 +94,8 @@ export const PersonInfo = () => {
                         reader.readAsDataURL(event.target.files[0])
                         reader.addEventListener('load', () => {
                             addLocalStorage('image', reader.result)
+                            setImage(reader.result)   
                         })
-                        setImage(event.target.files[0])
                     }}/>
                     <label htmlFor='upload-btn'>ატვირთვა</label>
                 </div>
