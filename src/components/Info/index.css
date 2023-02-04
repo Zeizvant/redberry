@@ -7,7 +7,6 @@
 .person-info{
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid #C8C8C8;
     height: fit-content;
     padding-bottom: 26px;
 }
@@ -70,7 +69,7 @@
 .person-experience-info{
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid #C8C8C8;
+    border-top: 1px solid #C8C8C8;
     gap: 16px;
     padding: 26px 0;
 }
@@ -79,5 +78,10 @@
     flex-direction: column;
     gap: 16px;
     padding: 26px 0;
-    border-bottom: 1px solid #C8C8C8;
+    border-top: 1px solid #C8C8C8;
+}
+.logo{
+    margin-top: 20px;
+    width: 42px;
+    height: 42px;
 }

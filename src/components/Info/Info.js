@@ -3,6 +3,7 @@ import './index.css'
 import img from '../../images/valid.png'
 import at from '../../images/at.png'
 import phone from '../../images/phone.png'
+import logo from '../../images/logo.png'
 
 export const Info = () => {
     return (
@@ -42,6 +43,7 @@ export const Info = () => {
                     კომპიუტერები მიყვარდა. ვიჯექი ჩემთვის, ვაკაკუნებდი ამ კლავიშებზე. მეუნებოდნენ — დაჯექი, 
                     წაიკითხე რამე, რას აკაკუნებ, დრო მოვა და ჩაგიკაკუნებსო. აჰა, მოვიდა დრო და ვერა ვარ დეველოპერი?</p>
             </div>
+            <img className='logo' src={logo} alt='logo'/>
         </div>
     )
 }
