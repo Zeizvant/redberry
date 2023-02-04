@@ -1,0 +1,21 @@
+.experiecne-form .textarea-div{
+    padding-bottom: 58px;
+    border-bottom: 1px solid #C1C1C1;
+}
+.navigation-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+.add-button{
+    align-self: flex-start;
+    color: #FFF;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    background: #62A1EB;
+    border-radius: 4px;
+    padding: 18px 60px;
+    margin-bottom: 61px;
+    cursor: pointer;
+}

@@ -27,7 +27,7 @@
     padding-top: 47px; 
     margin: 0 150px;
     display: flex;
-    gap: 54px;
+    gap: 31px;
     flex-direction: column;
     flex-shrink: 1;
 }
