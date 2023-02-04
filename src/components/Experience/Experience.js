@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import './index.css'
 import backSign from '../../images/back-sign.png'
+import { addLocalStorage } from "../../functions/addLocalStorage"
 
 export const Experience = () => {
 
@@ -14,7 +15,7 @@ export const Experience = () => {
     const addForm = () => {
         setFormNum([...formNum, formNum[formNum.length - 1] + 1])
     }
-    
+
     return (
         <div className="form experiecne-form">
             <div className='back-sign'>
