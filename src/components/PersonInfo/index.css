@@ -29,7 +29,6 @@
     display: flex;
     gap: 31px;
     flex-direction: column;
-    flex-shrink: 1;
 }
 
 .form-header{

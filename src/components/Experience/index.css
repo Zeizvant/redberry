@@ -2,6 +2,11 @@
     padding-bottom: 58px;
     border-bottom: 1px solid #C1C1C1;
 }
+.form-quantity{
+    display: flex;
+    gap: 31px;
+    flex-direction: column;
+}
 .navigation-buttons{
     display: flex;
     justify-content: space-between;
