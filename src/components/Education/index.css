@@ -1,0 +1,26 @@
+.select {
+    position: relative;
+}
+select{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    padding: 14px 16px;
+    border-radius: 4px;
+    border: 1px solid #BCBCBC;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.select-span::after{
+    content: '';
+    width: 11px;
+    height: 7px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: absolute;
+    right: 5%;
+    bottom: 35%;
+    background: url("../../images/down.png");
+    pointer-events: none;
+}

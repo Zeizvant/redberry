@@ -9,7 +9,7 @@ export const Info = (props) => {
 
     const data = props.personInfoData
     const experienceData = props.experienceData
-    console.log(experienceData)
+    const educationData = props.educationData
     return (
         <div className="info-component">
             <div className="person-info">
@@ -35,8 +35,7 @@ export const Info = (props) => {
                         data.about &&
                          <div className="about-me">
                             <h3>ᲩᲔᲛ ᲨᲔᲡᲐᲮᲔᲑ</h3>
-                            <p>ძალიან მიყვარს დიზაინის კეთება. დილით ადრე რომ 
-                            ავდგები გამამხნევებელი ვარჯიშების მაგიერ დიზაინს ვაკეთებ. </p>
+                            <p>{data.about}</p>
                         </div>
                     }
                     
@@ -63,15 +62,22 @@ export const Info = (props) => {
                     )
                 })
             }
-            
-            <div className="education">
-                <h3>ᲒᲐᲜᲐᲗᲚᲔᲑᲐ</h3>
-                <p className="place">წმ. ანდრიას საპატრიარქოს სასწავლებელი, სტუდენტი</p>
-                <p className="date">2020-09-09</p>
-                <p>ვსწავლობდი გულმოდგინეთ. მყავდა ფრიადები. რაც შემეძლო — ვქენი. 
-                    კომპიუტერები მიყვარდა. ვიჯექი ჩემთვის, ვაკაკუნებდი ამ კლავიშებზე. მეუნებოდნენ — დაჯექი, 
-                    წაიკითხე რამე, რას აკაკუნებ, დრო მოვა და ჩაგიკაკუნებსო. აჰა, მოვიდა დრო და ვერა ვარ დეველოპერი?</p>
-            </div>
+            {
+                educationData.eduFormNum != undefined && educationData.eduFormNum.map((data, i) => {
+                    const endDate = educationData.endDate[i] === undefined ? '' : educationData.endDate[i] 
+                    const institute = educationData.institute[i] === undefined ? '' : educationData.institute[i] + ','
+                    const degree = educationData.degree[i] === undefined ? '' : educationData.degree[i]
+                    const description = educationData.educationDescription[i] === undefined ? '' : educationData.educationDescription[i]
+                    return(
+                        <div key={i} className="education">
+                            <h3>ᲒᲐᲜᲐᲗᲚᲔᲑᲐ</h3>
+                            {(institute || degree) && <p className="place">{institute + ' ' + degree}</p>}
+                            {endDate && <p className="date">{endDate}</p>}
+                            {description && <p>{description}</p>}
+                        </div>
+                    )
+                })
+            }
             <img className='logo' src={logo} alt='logo'/>
         </div>
     )

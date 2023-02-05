@@ -60,7 +60,7 @@ export const Experience = (props) => {
     }, [])
 
     return (
-        <div className="form experiecne-form">
+        <div className="form e-form">
             <div className='back-sign'>
                 <img src={backSign} alt='back sign button'/>
             </div>
