@@ -65,7 +65,10 @@ export const Education = (props) => {
     return (
         <div className='form e-form'>
             <div className='back-sign'>
-                <img src={backSign} alt='back sign button'/>
+                <img src={backSign} alt='back sign button' onClick={() => {
+                        localStorage.clear()
+                        props.changePage(1)
+                    }}/>
             </div>
             <form>
                 <div className='form-header'>
@@ -133,8 +136,12 @@ export const Education = (props) => {
                     <button type='button' className="add-button" onClick={addForm}>სხვა სასწავლებლის დამატება</button>
                 </div>
                 <div className="navigation-buttons">
-                    <button className='form-buttons'>უკან</button>
-                    <button className='form-buttons'>ᲓᲐᲡᲠᲣᲚᲔᲑᲐ</button>
+                    <button type='button' className='form-buttons' onClick={() => {
+                        props.changePage(3)
+                    }}>უკან</button>
+                    <button type='button' className='form-buttons' onClick={() => {
+                        props.changePage(5)
+                    }}>ᲓᲐᲡᲠᲣᲚᲔᲑᲐ</button>
                 </div>
                 
             </form>

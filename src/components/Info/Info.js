@@ -10,11 +10,12 @@ export const Info = (props) => {
     const data = props.personInfoData
     const experienceData = props.experienceData
     const educationData = props.educationData
+    
     return (
         <div className="info-component">
             <div className="person-info">
                 <div className="person-description">
-                    {data.name && data.lastName && <h2>{`${data.name} ${data.lastName}`}</h2>}
+                    {(data.name || data.lastName) && <h2>{`${data.name} ${data.lastName}`}</h2>}
                     {
                         data.email && 
                             <div className="info-row">

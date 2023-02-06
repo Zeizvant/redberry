@@ -62,7 +62,10 @@ export const PersonInfo = (props) => {
     return (
         <div className='form'>
             <div className='back-sign'>
-                <img src={backSign} alt='back sign button'/>
+                <img src={backSign} alt='back sign button' onClick={() => {
+                    localStorage.clear()
+                    props.changePage(1)
+                }}/>
             </div>
             <form>
                 <div className='form-header'>
@@ -122,7 +125,9 @@ export const PersonInfo = (props) => {
                     }}/>
                     <p className='input-validation'>უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს</p>
                 </div>
-                <button className='form-buttons'>შემდეგი</button>
+                <button type='button' className='form-buttons' onClick={() => {
+                    props.changePage(3)
+                }}>შემდეგი</button>
             </form>
         </div>
     )
