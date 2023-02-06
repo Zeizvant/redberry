@@ -10,6 +10,9 @@
 .navigation-buttons{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 65px;
+    width: 798px;
+    margin: 0 150px 65px;
 }
 .add-button{
     align-self: flex-start;

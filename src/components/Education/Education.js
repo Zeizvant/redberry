@@ -12,6 +12,7 @@ export const Education = (props) => {
     const [endDate, setEndDate] = useState([])
     const [educationDescription, setEducationDescription] = useState([])
     const [eduFormNum, setEduFormNum] = useState([0])
+    const [eduChanged, setEduChanged] = useState([false])
     const context = useContext(UserContext)
 
     useEffect(() => {
@@ -20,17 +21,18 @@ export const Education = (props) => {
     }, [])
 
     useEffect(() => {
-        const data = {institute, degree, endDate, educationDescription, eduFormNum}
+        const data = {institute, degree, endDate, educationDescription, eduFormNum, eduChanged}
         props.sendData(data)
-    }, [institute, degree, endDate, educationDescription, eduFormNum])
+    }, [institute, degree, endDate, educationDescription, eduFormNum, eduChanged])
 
     useEffect(() => {
-        const {institute, degree, endDate, educationDescription, eduFormNum} = context.educationData
+        const {institute, degree, endDate, educationDescription, eduFormNum, eduChanged} = context.educationData
         setInstitute(institute)
         setDegree(degree)
         setEndDate(endDate)
         setEducationDescription(educationDescription)
         setEduFormNum(eduFormNum)
+        setEduChanged(eduChanged)
     }, [])
 
 
@@ -38,79 +40,98 @@ export const Education = (props) => {
         setEduFormNum([...eduFormNum, eduFormNum[eduFormNum.length - 1] + 1])
         addLocalStorage('eduFormNum', [...eduFormNum, eduFormNum[eduFormNum.length - 1] + 1])
     }
+
+    useEffect(() => {
+        addLocalStorage('eduChanged', eduChanged)
+    }, [eduChanged])
+
     return (
         <div className='form e-form'>
-            <div className='back-sign'>
-                <img src={backSign} alt='back sign button' onClick={() => {
-                        localStorage.clear()
-                        props.changePage(1)
-                    }}/>
+            <div className='back-sign' onClick={() => {
+                    localStorage.clear()
+                    props.changePage(1)
+            }}>
+                <img src={backSign} alt='back sign button'/>
             </div>
-            <form>
-                <div className='form-header'>
-                    <span>განათლება</span>
-                    <span className='page-number'>3/3</span>
-                </div>
-                {
-                    eduFormNum.map(i => {
-                        return (
-                            <div key={i} className='form-quantity'>
-                                <div className="text-input long">
-                                    <p className="label">სასწავლებელი</p>
-                                    <input type='text' placeholder="სასწავლებელი" value={institute[i] || ''} onChange={(event) => {
-                                        let array = institute
-                                        array[i] = event.target.value
-                                        addLocalStorage('institute', array)
-                                        setInstitute([...array])
-                                    }}/>
-                                    <p className='input-validation'>მინიმუმ 2 სიმბოლო</p>
-                                </div>
-                                <div className='two-input'>
-                                    <div className="text-input select">
-                                        <p className="label">ხარისხი</p>
-                                        <select name='degree' id='degree' value={degree[i] || ''} onChange={event => {
-                                            let array = degree
+            <div className="positioning">
+                <form>
+                    <div className='form-header'>
+                        <span>განათლება</span>
+                        <span className='page-number'>3/3</span>
+                    </div>
+                    {
+                        eduFormNum.map(i => {
+                            return (
+                                <div key={i} className='form-quantity'>
+                                    <div className="text-input long">
+                                        <p className="label">სასწავლებელი</p>
+                                        <input type='text' placeholder="სასწავლებელი" value={institute[i] || ''} onChange={(event) => {
+                                            let array = institute
                                             array[i] = event.target.value
-                                            addLocalStorage('degree', array)
-                                            setDegree([...array])
-                                        }}>
-                                            <option value='' disabled>აირჩიეთ ხარისხი</option>
-                                            {
-                                                options.map((option) => {
-                                                    return (
-                                                        <option key={option.id} value={option.title}>{option.title}</option>
-                                                    )
-                                                })
-                                            }
-                                        </select>
-                                        <span className="select-span"></span>
-                                    </div>
-                                    <div className="text-input">
-                                        <p className="label">დამთავრების რიცხვი</p>
-                                        <input type='date' value={endDate[i] || ''} onChange={(event) => {
-                                            let array = endDate
-                                            array[i] = event.target.value
-                                            addLocalStorage('endDate', array)
-                                            setEndDate([...array])
+                                            addLocalStorage('institute', array)
+                                            setInstitute([...array])
+                                            let changedArray = eduChanged
+                                            changedArray[i] = true
+                                            setEduChanged([...changedArray])
                                         }}/>
+                                        <p className='input-validation'>მინიმუმ 2 სიმბოლო</p>
+                                    </div>
+                                    <div className='two-input'>
+                                        <div className="text-input select">
+                                            <p className="label">ხარისხი</p>
+                                            <select name='degree' id='degree' value={degree[i] || ''} onChange={event => {
+                                                let array = degree
+                                                array[i] = event.target.value
+                                                addLocalStorage('degree', array)
+                                                setDegree([...array])
+                                                let changedArray = eduChanged
+                                                changedArray[i] = true
+                                                setEduChanged([...changedArray])
+                                            }}>
+                                                <option value='' disabled>აირჩიეთ ხარისხი</option>
+                                                {
+                                                    options.map((option) => {
+                                                        return (
+                                                            <option key={option.id} value={option.title}>{option.title}</option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
+                                            <span className="select-span"></span>
+                                        </div>
+                                        <div className="text-input">
+                                            <p className="label">დამთავრების რიცხვი</p>
+                                            <input type='date' value={endDate[i] || ''} onChange={(event) => {
+                                                let array = endDate
+                                                array[i] = event.target.value
+                                                addLocalStorage('endDate', array)
+                                                setEndDate([...array])
+                                                let changedArray = eduChanged
+                                                changedArray[i] = true
+                                                setEduChanged([...changedArray])
+                                            }}/>
+                                        </div>
+                                    </div>
+                                    <div className="textarea-div">
+                                        <p className='label'>აღწერა</p>
+                                        <textarea placeholder="განათლების აღწერა" value={educationDescription[i] || ''} onChange={(event) => {
+                                            let array = educationDescription
+                                            array[i] = event.target.value
+                                            addLocalStorage('educationDescription', array)
+                                            setEducationDescription([...array])
+                                            let changedArray = eduChanged
+                                            changedArray[i] = true
+                                            setEduChanged([...changedArray])
+                                        }}></textarea>
                                     </div>
                                 </div>
-                                <div className="textarea-div">
-                                    <p className='label'>აღწერა</p>
-                                    <textarea placeholder="განათლების აღწერა" value={educationDescription[i] || ''} onChange={(event) => {
-                                        let array = educationDescription
-                                        array[i] = event.target.value
-                                        addLocalStorage('educationDescription', array)
-                                        setEducationDescription([...array])
-                                    }}></textarea>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-                <div>
-                    <button type='button' className="add-button" onClick={addForm}>სხვა სასწავლებლის დამატება</button>
-                </div>
+                            )
+                        })
+                    }
+                    <div>
+                        <button type='button' className="add-button" onClick={addForm}>სხვა სასწავლებლის დამატება</button>
+                    </div>
+                </form>
                 <div className="navigation-buttons">
                     <button type='button' className='form-buttons' onClick={() => {
                         props.changePage(3)
@@ -119,8 +140,8 @@ export const Education = (props) => {
                         props.changePage(5)
                     }}>ᲓᲐᲡᲠᲣᲚᲔᲑᲐ</button>
                 </div>
-                
-            </form>
+            </div>
+            
         </div>
     )
 }

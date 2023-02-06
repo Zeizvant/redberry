@@ -18,6 +18,7 @@ function App() {
   const [educationData, setEducationData] = useState({})
   const [page, setPage] = useState(1)
 
+
   useEffect(() => {
     const page = JSON.parse(localStorage.getItem('page'))
     if(page){
@@ -38,7 +39,8 @@ function App() {
       about,
       email,
       number,
-      image
+      image,
+      
   }
     setPersonInfoData({...data})
 
@@ -52,9 +54,9 @@ function App() {
     const dueDate = JSON.parse(localStorage.getItem('dueDate')) || []
     const experienceDescription = JSON.parse(localStorage.getItem('experienceDescription')) || []
     const formNum = JSON.parse(localStorage.getItem('formNum')) || [0]
-    console.log(formNum)
+    const changed = JSON.parse(localStorage.getItem('changed')) || [false]
     const data = {
-      position, employer, startDate, dueDate, experienceDescription, formNum
+      position, employer, startDate, dueDate, experienceDescription, formNum, changed
   }
     setExperienceData({...data})
   }, [])
@@ -65,8 +67,9 @@ function App() {
     const endDate = JSON.parse(localStorage.getItem('endDate')) || []
     const educationDescription = JSON.parse(localStorage.getItem('educationDescription')) || []
     const eduFormNum = JSON.parse(localStorage.getItem('eduFormNum')) || [0]
+    const eduChanged = JSON.parse(localStorage.getItem('eduChanged')) || [false]
     const data = {
-      institute, degree, endDate, educationDescription, eduFormNum
+      institute, degree, endDate, educationDescription, eduFormNum, eduChanged
   }
     setEducationData({...data})
   }, [])
