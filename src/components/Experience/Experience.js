@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useContext, useEffect, useState } from "react"
 import './index.css'
 import backSign from '../../images/back-sign.png'
 import { addLocalStorage } from "../../functions/addLocalStorage"
+import { UserContext } from "../../App"
 
 export const Experience = (props) => {
 
@@ -11,6 +12,7 @@ export const Experience = (props) => {
     const [dueDate, setDueDate] = useState([])
     const [experienceDescription, setExperienceDescription] = useState([])
     const [formNum, setFormNum] = useState([0])
+    const context = useContext(UserContext)
 
     const addForm = () => {
         setFormNum([...formNum, formNum[formNum.length - 1] + 1])
@@ -23,40 +25,13 @@ export const Experience = (props) => {
     }, [position, employer, startDate, dueDate, experienceDescription, formNum])
 
     useEffect(() => {
-        const position = JSON.parse(localStorage.getItem('position'))
-        if(position){
-            setPosition(position)
-        }
-    }, [])
-    useEffect(() => {
-        const employer = JSON.parse(localStorage.getItem('employer'))
-        if(employer){
-            setEmployer(employer)
-        }
-    }, [])
-    useEffect(() => {
-        const startDate = JSON.parse(localStorage.getItem('startDate'))
-        if(startDate){
-            setStartDate(startDate)
-        }
-    }, [])
-    useEffect(() => {
-        const dueDate = JSON.parse(localStorage.getItem('dueDate'))
-        if(dueDate){
-            setDueDate(dueDate)
-        }
-    }, [])
-    useEffect(() => {
-        const experienceDescription = JSON.parse(localStorage.getItem('experienceDescription'))
-        if(experienceDescription){
-            setExperienceDescription(experienceDescription)
-        }
-    }, [])
-    useEffect(() => {
-        const formNum = JSON.parse(localStorage.getItem('formNum'))
-        if(formNum){
-            setFormNum(formNum)
-        }
+        const {position, employer, startDate, dueDate, experienceDescription, formNum} = context.experienceData
+        setPosition(position)
+        setEmployer(employer)
+        setStartDate(startDate)
+        setDueDate(dueDate)
+        setExperienceDescription(experienceDescription)
+        setFormNum(formNum)
     }, [])
 
     return (

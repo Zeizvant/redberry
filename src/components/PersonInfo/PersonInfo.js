@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import './index.css'
 import backSign from '../../images/back-sign.png'
 import { addLocalStorage } from "../../functions/addLocalStorage"
+import { UserContext } from "../../App"
 
 export const PersonInfo = (props) => {
     const [name, setName] = useState('')
@@ -10,6 +11,7 @@ export const PersonInfo = (props) => {
     const [email, setEmail] = useState('')
     const [number, setNumber] = useState('')
     const [image, setImage] = useState(null)
+    const context = useContext(UserContext)
 
     useEffect(() => {
         const data = {
@@ -24,41 +26,16 @@ export const PersonInfo = (props) => {
     }, [name, lastName, about, email, number, image])
 
     useEffect(() => {
-        const name = JSON.parse(localStorage.getItem('name'))
-        if(name){
-            setName(name)
-        }
+        const {name, lastName, about, email, number, image} = context.personInfoData
+        setName(name)
+        setLastName(lastName)
+        setAbout(about)
+        setEmail(email)
+        setNumber(number)
+        setImage(image)
     }, [])
-    useEffect(() => {
-        const lastName = JSON.parse(localStorage.getItem('lastName'))
-        if(lastName){
-            setLastName(lastName)
-        }
-    }, [])
-    useEffect(() => {
-        const about = JSON.parse(localStorage.getItem('about'))
-        if(about){
-            setAbout(about)
-        }
-    }, [])
-    useEffect(() => {
-        const email = JSON.parse(localStorage.getItem('email'))
-        if(email){
-            setEmail(email)
-        }
-    }, [])
-    useEffect(() => {
-        const number = JSON.parse(localStorage.getItem('number'))
-        if(number){
-            setNumber(number)
-        }
-    }, [])
-    useEffect(() => {
-        const image = JSON.parse(localStorage.getItem('image'))
-        if(image){
-            setImage(image)
-        }
-    }, [])
+
+
     return (
         <div className='form'>
             <div className='back-sign'>

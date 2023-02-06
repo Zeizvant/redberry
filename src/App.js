@@ -5,9 +5,11 @@ import { Info } from './components/Info/Info'
 import { Experience } from './components/Experience/Experience'
 import { Education } from './components/Education/Education'
 import { Success } from './components/Success/Success'
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { addLocalStorage } from './functions/addLocalStorage';
 
+
+export const UserContext = createContext();
 
 function App() {
 
@@ -22,6 +24,55 @@ function App() {
       setPage(page)
     }
   }, [])
+  useEffect(() => {
+      
+    const name = JSON.parse(localStorage.getItem('name')) || ''
+    const lastName = JSON.parse(localStorage.getItem('lastName')) || ''
+    const about = JSON.parse(localStorage.getItem('about')) || ''
+    const email = JSON.parse(localStorage.getItem('email')) || ''
+    const number = JSON.parse(localStorage.getItem('number')) || ''
+    const image = JSON.parse(localStorage.getItem('image')) || ''
+    const data = {
+      name,
+      lastName,
+      about,
+      email,
+      number,
+      image
+  }
+    setPersonInfoData({...data})
+
+  }, [])
+
+  useEffect(() => {
+      
+    const position = JSON.parse(localStorage.getItem('position')) || []
+    const employer = JSON.parse(localStorage.getItem('employer')) || []
+    const startDate = JSON.parse(localStorage.getItem('startDate')) || []
+    const dueDate = JSON.parse(localStorage.getItem('dueDate')) || []
+    const experienceDescription = JSON.parse(localStorage.getItem('experienceDescription')) || []
+    const formNum = JSON.parse(localStorage.getItem('formNum')) || [0]
+    console.log(formNum)
+    const data = {
+      position, employer, startDate, dueDate, experienceDescription, formNum
+  }
+    setExperienceData({...data})
+  }, [])
+
+  useEffect(() => {
+    const institute = JSON.parse(localStorage.getItem('institute')) || []
+    const degree = JSON.parse(localStorage.getItem('degree')) || []
+    const endDate = JSON.parse(localStorage.getItem('endDate')) || []
+    const educationDescription = JSON.parse(localStorage.getItem('educationDescription')) || []
+    const eduFormNum = JSON.parse(localStorage.getItem('eduFormNum')) || [0]
+    const data = {
+      institute, degree, endDate, educationDescription, eduFormNum
+  }
+    setEducationData({...data})
+  }, [])
+
+
+
 
   const getPersonInfoData = (data) => {
     setPersonInfoData({...data})
@@ -38,36 +89,38 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {
-        page === 1 && <Landing changePage={changePage}/>
-      }
-      {
-        page === 2 && 
-        <>
-          <PersonInfo sendData={getPersonInfoData} changePage={changePage}/> 
-          <Info personInfoData={personInfoData} experienceData={experienceData} educationData={educationData}/>
-        </>
-      }
-      {
-        page === 3 && 
-        <>
-          <Experience sendData={getExperienceData} changePage={changePage}/>
-          <Info personInfoData={personInfoData} experienceData={experienceData} educationData={educationData}/>
-        </>
-      }
-      {
-        page === 4 && 
-        <>
-          <Education sendData={getEducationData} changePage={changePage}/>
-          <Info personInfoData={personInfoData} experienceData={experienceData} educationData={educationData}/>
-        </>
-      }
-      {
-        page === 5 && 
-        <Success />
-      }
-    </div>
+    <UserContext.Provider value={{personInfoData, experienceData, educationData}}>
+      <div className="App">
+        {
+          page === 1 && <Landing changePage={changePage}/>
+        }
+        {
+          page === 2 && 
+          <>
+            <PersonInfo sendData={getPersonInfoData} changePage={changePage}/>
+            <Info />
+          </>
+        }
+        {
+          page === 3 && 
+          <>
+            <Experience sendData={getExperienceData} changePage={changePage}/>
+            <Info />
+          </>
+        }
+        {
+          page === 4 && 
+          <>
+            <Education sendData={getEducationData} changePage={changePage}/>
+            <Info />
+          </>
+        }
+        {
+          page === 5 && 
+          <Success />
+        }
+      </div>
+    </UserContext.Provider>
   );
 }
 

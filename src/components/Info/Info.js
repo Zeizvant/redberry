@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import './index.css'
 import img from '../../images/valid.png'
 import at from '../../images/at.png'
 import phone from '../../images/phone.png'
 import logo from '../../images/logo.png'
+import { UserContext } from "../../App"
 
 export const Info = (props) => {
 
-    const data = props.personInfoData
-    const experienceData = props.experienceData
-    const educationData = props.educationData
+    const context = useContext(UserContext)
+    const data = context.personInfoData
+    const experienceData = context.experienceData
+    const educationData = context.educationData
     
     return (
         <div className="info-component">

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useContext, useEffect, useState } from "react"
 import './index.css'
 import backSign from '../../images/back-sign.png'
 import { addLocalStorage } from "../../functions/addLocalStorage"
+import { UserContext } from "../../App"
 
 export const Education = (props) => {
 
@@ -11,6 +12,7 @@ export const Education = (props) => {
     const [endDate, setEndDate] = useState([])
     const [educationDescription, setEducationDescription] = useState([])
     const [eduFormNum, setEduFormNum] = useState([0])
+    const context = useContext(UserContext)
 
     useEffect(() => {
         fetch('https://resume.redberryinternship.ge/api/degrees').then((response) => response.json())
@@ -23,38 +25,12 @@ export const Education = (props) => {
     }, [institute, degree, endDate, educationDescription, eduFormNum])
 
     useEffect(() => {
-        const institute = JSON.parse(localStorage.getItem('institute'))
-        if(institute){
-            setInstitute(institute)
-        }
-    }, [])
-
-    useEffect(() => {
-        const degree = JSON.parse(localStorage.getItem('degree'))
-        if(degree){
-            setDegree(degree)
-        }
-    }, [])
-
-    useEffect(() => {
-        const endDate = JSON.parse(localStorage.getItem('endDate'))
-        if(endDate){
-            setEndDate(endDate)
-        }
-    }, [])
-
-    useEffect(() => {
-        const educationDescription = JSON.parse(localStorage.getItem('educationDescription'))
-        if(educationDescription){
-            setEducationDescription(educationDescription)
-        }
-    }, [])
-
-    useEffect(() => {
-        const eduFormNum = JSON.parse(localStorage.getItem('eduFormNum'))
-        if(eduFormNum){
-            setEduFormNum(eduFormNum)
-        }
+        const {institute, degree, endDate, educationDescription, eduFormNum} = context.educationData
+        setInstitute(institute)
+        setDegree(degree)
+        setEndDate(endDate)
+        setEducationDescription(educationDescription)
+        setEduFormNum(eduFormNum)
     }, [])
 
 
