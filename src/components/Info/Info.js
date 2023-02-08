@@ -24,6 +24,7 @@ export const Info = (props) => {
     }
     return (
         <div className="positioning-info">
+            <img className='logo' src={logo} alt='logo'/>
             <div className="info-component">
                 <div className="person-info">
                     <div className="person-description">
@@ -93,7 +94,6 @@ export const Info = (props) => {
                 }
                 
             </div>
-            <img className='logo' src={logo} alt='logo'/>
         </div>
     )
 }

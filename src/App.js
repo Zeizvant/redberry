@@ -120,7 +120,9 @@ function App() {
         }
         {
           page === 5 && 
-          <Success />
+          <>
+            <Success changePage={changePage}/>
+          </>
         }
       </div>
     </UserContext.Provider>
