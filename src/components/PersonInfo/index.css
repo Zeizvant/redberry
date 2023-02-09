@@ -65,6 +65,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    position: relative;
 }
 
 .text-input p {
@@ -93,6 +94,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    position: relative;
 }
 .photo-upload label{
     font-weight: 400;
@@ -150,15 +152,24 @@
 .text-input .invalid{
     border: 1px solid #EF5050;
 }
-.text-input .invalid-span::after{
+.text-input .invalid-span{
     content: "";
     display: inline-block;
-    left: 101%;
-    bottom: 35px;
+    left: 102%;
+    bottom: 42%;
     background: url('../../images/invalid.png');
     width: 21px;
     height: 18.75px;
-    position: relative;
+    position: absolute;
+}
+.photo-upload .invalid-span{
+    content: "";
+    display: inline-block;
+    left: 45%;
+    background: url('../../images/invalid.png');
+    width: 21px;
+    height: 18.75px;
+    position: absolute;
 }
 .navigation-button{
     display: flex;

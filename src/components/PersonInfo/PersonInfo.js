@@ -3,6 +3,10 @@ import './index.css'
 import backSign from '../../images/back-sign.png'
 import { addLocalStorage } from "../../functions/addLocalStorage"
 import { UserContext } from "../../App"
+import { reqMin2Geo } from "../../validation/reqMin2Geo"
+import { geoNumber } from "../../validation/geoNumber"
+import { addSpacesToInput } from "../../functions/addSpacesToInput"
+import { reqMail } from "../../validation/reqMail"
 
 export const PersonInfo = (props) => {
     const [name, setName] = useState('')
@@ -11,6 +15,8 @@ export const PersonInfo = (props) => {
     const [email, setEmail] = useState('')
     const [number, setNumber] = useState('')
     const [image, setImage] = useState(null)
+    const [inputChanged, setInputChanged] = useState([false, false, false, false, false])
+    const [isValid, setIsValid] = useState([false, false, false, false, false])
     const context = useContext(UserContext)
 
     useEffect(() => {
@@ -21,20 +27,67 @@ export const PersonInfo = (props) => {
             email,
             number,
             image,
+            inputChanged,
+            isValid
         }
         props.sendData(data)
-    }, [name, lastName, about, email, number, image])
+    }, [name, lastName, about, email, number, image, inputChanged, isValid])
 
     useEffect(() => {
-        const {name, lastName, about, email, number, image} = context.personInfoData
+        const {name, lastName, about, email, number, image, inputChanged, isValid} = context.personInfoData
         setName(name)
         setLastName(lastName)
         setAbout(about)
         setEmail(email)
         setNumber(number)
         setImage(image)
+        setInputChanged(inputChanged)
+        setIsValid(isValid)
     }, [])
 
+    useEffect(() => {
+        let array = isValid
+        array[0] = reqMin2Geo(name)
+        setIsValid([...array])
+        addLocalStorage('isValid', [...array])
+    }, [name])
+
+    useEffect(() => {
+        let array = isValid
+        array[1] = reqMin2Geo(lastName)
+        setIsValid([...array])
+        addLocalStorage('isValid', [...array])
+    }, [lastName])
+
+    useEffect(() => {
+        let array = isValid
+        array[2] = inputChanged[2]
+        setIsValid([...array])
+        addLocalStorage('isValid', [...array])
+    }, [image])
+
+    useEffect(() => {
+        let array = isValid
+        array[3] = reqMail(email)
+        setIsValid([...array])
+        addLocalStorage('isValid', [...array])
+    }, [email])
+
+    useEffect(() => {
+        let array = isValid
+        array[4] = geoNumber(number)
+        setIsValid([...array])
+        addLocalStorage('isValid', [...array])
+    }, [number])
+
+    const isAllValid = () => {
+        for(let i = 0; i<isValid.length ;i++){
+            if(isValid[i] === false){
+                return false
+            }
+        }
+        return true
+    }
 
     return (
         <div className='form'>
@@ -53,18 +106,29 @@ export const PersonInfo = (props) => {
                     <div className='two-input'>
                         <div className="text-input">
                             <p className="label">სახელი</p>
-                            <input type='text' placeholder="ანზორ" value={name} onChange={(event) => {
+                            <input className={inputChanged[0]? (isValid[0] ? 'valid' : 'invalid'): ''} type='text' placeholder="ანზორ" value={name} onChange={(event) => {
                                 addLocalStorage('name', event.target.value)
                                 setName(event.target.value)
+                                let array = inputChanged
+                                array[0] = true
+                                setInputChanged([...array])
+                                addLocalStorage('inputChanged', [...array])
                                 }}/>
+                                {(inputChanged[0] && !isValid[0]) && <span className="invalid-span"></span> }
                             <p className='input-validation'>მინიმუმ 2 ასო, ქართული ასოები</p>
                         </div>
+                        
                         <div className='text-input'>
                             <p className="label">გვარი</p>
-                            <input type='text' placeholder="მუმლაძე" value={lastName} onChange={(event) => {
+                            <input className={inputChanged[1]? (isValid[1] ? 'valid' : 'invalid'): ''} type='text' placeholder="მუმლაძე" value={lastName} onChange={(event) => {
                                 addLocalStorage('lastName', event.target.value)
                                 setLastName(event.target.value)
+                                let array = inputChanged
+                                array[1] = true
+                                setInputChanged([...array])
+                                addLocalStorage('inputChanged', [...array])
                             }}/>
+                            {(inputChanged[1] && !isValid[1]) && <span className="invalid-span"></span> }
                             <p className='input-validation'>მინიმუმ 2 ასო, ქართული ასოები</p>
                         </div>
                     </div>
@@ -75,9 +139,14 @@ export const PersonInfo = (props) => {
                             reader.readAsDataURL(event.target.files[0])
                             reader.addEventListener('load', () => {
                                 addLocalStorage('image', reader.result)
-                                setImage(reader.result)   
+                                setImage(reader.result)
+                                let array = inputChanged
+                                array[2] = true
+                                setInputChanged([...array])
+                                addLocalStorage('inputChanged', [...array])
                             })
                         }}/>
+                        {(inputChanged[2] && !isValid[2]) && <span className="invalid-span"></span> }
                         <label htmlFor='upload-btn'>ატვირთვა</label>
                     </div>
                     <div>
@@ -89,24 +158,39 @@ export const PersonInfo = (props) => {
                     </div>
                     <div className="text-input long">
                         <p className="label">ელ.ფოსტა</p>
-                        <input type='text' placeholder="anzorr666@redberry.ge" value={email} onChange={(event) => {
+                        <input className={inputChanged[3]? (isValid[3] ? 'valid' : 'invalid'): ''} type='text' placeholder="anzorr666@redberry.ge" value={email} onChange={(event) => {
                             addLocalStorage('email', event.target.value)
                             setEmail(event.target.value)
+                            let array = inputChanged
+                            array[3] = true
+                            setInputChanged([...array])
+                            addLocalStorage('inputChanged', [...array])
                         }}/>
+                        {(inputChanged[3] && !isValid[3]) && <span className="invalid-span"></span> }
                         <p className='input-validation'>უნდა მთავრდებოდეს @redberry.ge-ით</p>
                     </div>
                     <div className="text-input long">
                         <p className="label">მობილურის ნომერი</p>
-                        <input type='text' placeholder="+995 551 12 34 56" value={number} onChange={(event) => {
+                        <input className={inputChanged[4]? (isValid[4] ? 'valid' : 'invalid'): ''} type='text' placeholder="+995 551 12 34 56" value={number} onChange={(event) => {
                             addLocalStorage('number', event.target.value)
                             setNumber(event.target.value)
+                            let array = inputChanged
+                            array[4] = true
+                            setInputChanged([...array])
+                            addLocalStorage('inputChanged', [...array])
+                        }} onKeyDown={(event) => {
+                            let input = event.target.value
+                            event.target.value = addSpacesToInput(input, event)
                         }}/>
+                        {(inputChanged[4] && !isValid[4]) && <span className="invalid-span"></span> }
                         <p className='input-validation'>უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს</p>
                     </div> 
                 </form>
                 <div className="navigation-button">
                     <button type='button' className='form-buttons' onClick={() => {
-                        props.changePage(3)
+                        if(isAllValid()){
+                            props.changePage(3)
+                        }
                     }}>შემდეგი</button>
                 </div>  
             </div>

@@ -33,6 +33,8 @@ function App() {
     const email = JSON.parse(localStorage.getItem('email')) || ''
     const number = JSON.parse(localStorage.getItem('number')) || ''
     const image = JSON.parse(localStorage.getItem('image')) || ''
+    const inputChanged = JSON.parse(localStorage.getItem('inputChanged')) || [false, false, false, false, false]
+    const isValid = JSON.parse(localStorage.getItem('isValid')) || [false, false, false, false, false]
     const data = {
       name,
       lastName,
@@ -40,7 +42,8 @@ function App() {
       email,
       number,
       image,
-      
+      inputChanged,
+      isValid    
   }
     setPersonInfoData({...data})
 

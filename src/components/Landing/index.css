@@ -42,7 +42,7 @@
     cursor: pointer;
 }
 .landing-button:after{
-    display: none;
+    display: block;
     content: "";
     width: 299px;
     height: 299px;
@@ -50,6 +50,7 @@
     left: 350px;
     bottom: 100px;
     background: url("../../images/transparent-logo.png");
+    mix-blend-mode: multiply;
 }
 
 @media ( max-width: 390px){
