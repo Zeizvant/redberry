@@ -125,6 +125,56 @@ export const Education = (props) => {
         return true
     }
 
+    const sendApiData = () => {
+        const {name, lastName, about, email, number, image, inputChanged, isValid} = context.personInfoData
+        const {position, employer, startDate, dueDate, experienceDescription, formNum, changed, expInputChanged, expIsValid} = context.experienceData
+        let exp = []
+        let edu = []
+        for(let i = 0; i<position.length; i++){
+            let data = {
+                position: position[i],
+                employer: employer[i],
+                start_date: startDate[i],
+                due_date: dueDate[i],
+                description: experienceDescription[i]
+            }
+            exp.push(data)
+        }
+        for(let j = 0; j<institute.length; j++){
+            let data = {
+                institute: institute[j],
+                degree: degree[j],
+                due_date: endDate[j],
+                description: educationDescription[j]
+            }
+            edu.push(data)
+
+        }
+        const data = {
+            name: name,
+            surname: lastName,
+            email: email,
+            phone_number: number,
+            experiences: exp,
+            educations: edu,
+            image: image,
+            about_me: about
+        }
+        fetch('https://resume.redberryinternship.ge/api/cvs', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.ok) {
+                return response
+            }
+        }).then(data => {
+            console.log(data);
+        }).then(error => {
+            console.log(error);
+        })
+        
+    }
+    
     if(eduInputChanged[eduFormNum.length - 1]!== undefined && eduIsValid[eduFormNum.length - 1] !== undefined){
     return (
         <div className='form e-form'>
@@ -244,6 +294,7 @@ export const Education = (props) => {
                     }}>უკან</button>
                     <button type='button' className='form-buttons' onClick={() => {
                         if(isAllValid()){
+                            sendApiData()
                             props.changePage(5)
                         }else{
                             let array = eduInputChanged
