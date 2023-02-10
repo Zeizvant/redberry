@@ -12,6 +12,7 @@ export const Success = (props) => {
         <div className='success'>
             <div className='back-sign' onClick={() => {
                     localStorage.clear()
+                    props.clearData()
                     props.changePage(1)
             }}>
                 <img src={backSign} alt='back sign button'/>

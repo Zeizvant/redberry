@@ -26,7 +26,6 @@ function App() {
     }
   }, [])
   useEffect(() => {
-      
     const name = JSON.parse(localStorage.getItem('name')) || ''
     const lastName = JSON.parse(localStorage.getItem('lastName')) || ''
     const about = JSON.parse(localStorage.getItem('about')) || ''
@@ -58,8 +57,10 @@ function App() {
     const experienceDescription = JSON.parse(localStorage.getItem('experienceDescription')) || []
     const formNum = JSON.parse(localStorage.getItem('formNum')) || [0]
     const changed = JSON.parse(localStorage.getItem('changed')) || [false]
+    const expInputChanged = JSON.parse(localStorage.getItem('expInputChanged')) || [[false, false, false, false, false]]
+    const expIsValid = JSON.parse(localStorage.getItem('expIsValid')) || [[false, false, false, false, false]]
     const data = {
-      position, employer, startDate, dueDate, experienceDescription, formNum, changed
+      position, employer, startDate, dueDate, experienceDescription, formNum, changed, expInputChanged, expIsValid
   }
     setExperienceData({...data})
   }, [])
@@ -71,14 +72,48 @@ function App() {
     const educationDescription = JSON.parse(localStorage.getItem('educationDescription')) || []
     const eduFormNum = JSON.parse(localStorage.getItem('eduFormNum')) || [0]
     const eduChanged = JSON.parse(localStorage.getItem('eduChanged')) || [false]
+    const eduInputChanged = JSON.parse(localStorage.getItem('eduInputChanged')) || [[false, false, false, false]]
+    const eduIsValid = JSON.parse(localStorage.getItem('eduIsValid')) || [[false, false, false, false]]
     const data = {
-      institute, degree, endDate, educationDescription, eduFormNum, eduChanged
+      institute, degree, endDate, educationDescription, eduFormNum, eduChanged, eduInputChanged, eduIsValid
   }
     setEducationData({...data})
   }, [])
 
-
-
+  const clearData = () => {
+    setPersonInfoData({
+      name: '',
+      lastName: '',
+      about: '',
+      email: '',
+      number: '',
+      image: '',
+      inputChanged: [false, false, false, false, false],
+      isValid: [false, false, false, false, false]
+    })
+    setExperienceData({
+      position: [],
+      employer: [],
+      startDate: [],
+      dueDate: [],
+      experienceDescription: [],
+      formNum: [0],
+      changed: [false],
+      expInputChanged: [[false, false, false, false, false]], 
+      expIsValid: [[false, false, false, false, false]]
+    })
+    setEducationData({
+      institute: [],
+      degree: [],
+      endDate: [],
+      educationDescription: [], 
+      eduFormNum: [0], 
+      eduChanged: [false], 
+      eduInputChanged: [[false, false, false, false]], 
+      eduIsValid: [[false, false, false, false]]
+    })
+    
+  }
 
   const getPersonInfoData = (data) => {
     setPersonInfoData({...data})
@@ -103,28 +138,28 @@ function App() {
         {
           page === 2 && 
           <>
-            <PersonInfo sendData={getPersonInfoData} changePage={changePage}/>
+            <PersonInfo sendData={getPersonInfoData} changePage={changePage} clearData={clearData}/>
             <Info />
           </>
         }
         {
           page === 3 && 
           <>
-            <Experience sendData={getExperienceData} changePage={changePage}/>
+            <Experience sendData={getExperienceData} changePage={changePage} clearData={clearData}/>
             <Info />
           </>
         }
         {
           page === 4 && 
           <>
-            <Education sendData={getEducationData} changePage={changePage}/>
+            <Education sendData={getEducationData} changePage={changePage} clearData={clearData}/>
             <Info />
           </>
         }
         {
           page === 5 && 
           <>
-            <Success changePage={changePage}/>
+            <Success changePage={changePage} clearData={clearData}/>
           </>
         }
       </div>

@@ -27,3 +27,39 @@
     margin-bottom: 61px;
     cursor: pointer;
 }
+textarea{
+    position: relative;
+}
+
+.textarea-div{
+    position: relative;
+}
+
+.textarea-div .invalid-span{
+    content: "";
+    display: inline-block;
+    background: url('../../images/invalid.png');
+    width: 21px;
+    height: 18.75px;
+    position: absolute;
+    bottom: 55%;
+}
+.textarea-div .valid{
+    border: 1px solid #98E37E;
+    background-image: url("../../images/valid.png");
+    background-repeat: no-repeat;
+    background-position: 98%;
+}
+.textarea-div .invalid{
+    border: 1px solid #EF5050;
+}
+input[type='date']{
+    margin-bottom: 25px;
+}
+input[type='date'].valid{
+    border: 1px solid #98E37E;
+    background-image: none !important;
+}
+input[type='date'].invalid{
+    border: 1px solid #EF5050;
+}

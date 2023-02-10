@@ -3,6 +3,7 @@
 }
 select{
     font-weight: 400;
+    position: relative;
     font-size: 16px;
     line-height: 21px;
     padding: 14px 16px;
@@ -20,7 +21,7 @@ select{
     display: inline-block;
     position: absolute;
     right: 5%;
-    bottom: 35%;
+    bottom: 45%;
     background: url("../../images/down.png");
     pointer-events: none;
 }

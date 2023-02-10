@@ -88,11 +88,11 @@ export const PersonInfo = (props) => {
         }
         return true
     }
-
     return (
         <div className='form'>
             <div className='back-sign' onClick={() => {
                     localStorage.clear()
+                    props.clearData()
                     props.changePage(1)
             }}>
                 <img src={backSign} alt='back sign button'/>
@@ -106,7 +106,7 @@ export const PersonInfo = (props) => {
                     <div className='two-input'>
                         <div className="text-input">
                             <p className="label">სახელი</p>
-                            <input className={inputChanged[0]? (isValid[0] ? 'valid' : 'invalid'): ''} type='text' placeholder="ანზორ" value={name} onChange={(event) => {
+                            <input className={inputChanged[0]?((isValid[0] ? 'valid' : 'invalid')): ''} type='text' placeholder="ანზორ" value={name} onChange={(event) => {
                                 addLocalStorage('name', event.target.value)
                                 setName(event.target.value)
                                 let array = inputChanged
@@ -120,7 +120,7 @@ export const PersonInfo = (props) => {
                         
                         <div className='text-input'>
                             <p className="label">გვარი</p>
-                            <input className={inputChanged[1]? (isValid[1] ? 'valid' : 'invalid'): ''} type='text' placeholder="მუმლაძე" value={lastName} onChange={(event) => {
+                            <input className={inputChanged[1]? ((isValid[1] ? 'valid' : 'invalid')): ''} type='text' placeholder="მუმლაძე" value={lastName} onChange={(event) => {
                                 addLocalStorage('lastName', event.target.value)
                                 setLastName(event.target.value)
                                 let array = inputChanged
@@ -190,6 +190,11 @@ export const PersonInfo = (props) => {
                     <button type='button' className='form-buttons' onClick={() => {
                         if(isAllValid()){
                             props.changePage(3)
+                        }else{
+                            let array = inputChanged
+                            array[2] = true
+                            setInputChanged([...array])
+                            addLocalStorage('inputChanged', [...array])
                         }
                     }}>შემდეგი</button>
                 </div>  
